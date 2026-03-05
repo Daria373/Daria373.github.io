@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daria | Frontend & Android Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #4b5563;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1d5db;
+            border-radius: 10px;
+        }
+    </style>
+	<meta name="robots" content="noindex, nofollow">
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-300 font-sans">
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl font-bold tracking-tighter text-indigo-600 dark:text-indigo-400">DARIA.CODE</a>
+            
+            <div class="flex items-center gap-4">
+                <ul class="hidden md:flex gap-8 text-sm font-medium">
+                    <li><a href="#about" class="hover:text-indigo-600 transition-colors">Про мене</a></li>
+                    <li><a href="#skills" class="hover:text-indigo-600 transition-colors">Стек</a></li>
+                    <li><a href="#projects" class="hover:text-indigo-600 transition-colors">Проєкти</a></li>
+                    <li><a href="#contact" class="hover:text-indigo-600 transition-colors">Контакти</a></li>
+                </ul>
+                
+                <div class="flex items-center gap-2">
+                    <button id="theme-toggle" class="p-2 rounded-full bg-slate-200 dark:bg-slate-800 hover:ring-2 ring-indigo-500 transition-all">
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"></path></svg>
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="mobile-menu-button" class="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-900 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                            <path id="close-icon" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 dark:bg-slate-950/95 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 absolute top-full left-0 w-full shadow-xl transition-all duration-300">
+            <ul class="px-6 py-8 flex flex-col gap-6 text-lg font-medium">
+                <li><a href="#about" class="block hover:text-indigo-600 transition-colors">Про мене</a></li>
+                <li><a href="#skills" class="block hover:text-indigo-600 transition-colors">Стек</a></li>
+                <li><a href="#projects" class="block hover:text-indigo-600 transition-colors">Проєкти</a></li>
+                <li><a href="#contact" class="block hover:text-indigo-600 transition-colors">Контакти</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="pt-24">
+        <!-- Hero Section -->
+        <section id="about" class="container mx-auto px-6 py-20 flex flex-col-reverse md:flex-row items-center gap-12">
+            <div class="md:w-3/5 fade-in">
+                <p class="text-indigo-600 dark:text-indigo-400 font-semibold mb-2 uppercase tracking-widest text-sm">Привіт, я Дар'я</p>
+                <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-[1.1]">Frontend & <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-500">Android Developer</span></h1>
+                <p class="text-lg text-slate-600 dark:text-slate-400 mb-8 leading-relaxed max-w-2xl">
+                    Студентка 4 курсу спеціальності Комп'ютерна інженерія. Мене цікавить шлях розробки користувацьких інтерфейсів. Фокусуюсь на створенні доступних та продуктивних веб-додатків на React, а також досліджую світ мобільної розробки з Kotlin та Jetpack Compose. Вірю, що гарний код — це той, який робить життя користувача простішим.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="px-8 py-3 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-500/25 text-center">Розпочати проєкт</a>
+                    <a href="#projects" class="px-8 py-3 border border-slate-200 dark:border-slate-800 rounded-lg font-medium hover:bg-slate-100 dark:hover:bg-slate-900 transition-all text-center">Переглянути роботи</a>
+                </div>
+            </div>
+            <div class="md:w-2/5 flex justify-center fade-in">
+                <div class="relative">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-indigo-600 to-purple-500 rounded-2xl blur opacity-30"></div>
+                    <img src="foto.png" alt="Coding on laptop" class="relative w-64 h-64 md:w-80 md:h-80 object-cover rounded-2xl border-2 border-white dark:border-slate-900 shadow-2xl">
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="bg-white dark:bg-slate-900/50 py-24 transition-colors">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 fade-in">
+                    <h2 class="text-3xl font-bold mb-4">Технологічний Стек</h2>
+                    <div class="w-20 h-1 bg-indigo-600 mx-auto rounded-full"></div>
+                </div>
+                
+                <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                    <!-- Web Development -->
+                    <div class="fade-in">
+                        <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                            <span class="p-2 bg-indigo-100 dark:bg-indigo-900/30 rounded-lg text-indigo-600">🌐</span> 
+                            Web Development
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow">
+                                <span class="font-medium">React</span>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow">
+                                <span class="font-medium">JavaScript (ES6+)</span>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow">
+                                <span class="font-medium">Tailwind CSS</span>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow">
+                                <span class="font-medium">HTML5 & CSS3</span>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow">
+                                <span class="font-medium text-sm text-indigo-500">Responsive Design</span>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow">
+                                <span class="font-medium text-sm text-indigo-500">Accessibility (a11y)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Android Development -->
+                    <div class="fade-in">
+                        <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
+                            <span class="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg text-green-600">📱</span> 
+                            Android Development
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow">
+                                <span class="font-medium">Kotlin</span>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow">
+                                <span class="font-medium">Jetpack Compose</span>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow">
+                                <span class="font-medium">Android Studio</span>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow">
+                                <span class="font-medium">Material Design 3</span>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow">
+                                <span class="font-medium">Retrofit (API)</span>
+                            </div>
+                            <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-800 hover:shadow-md transition-shadow">
+                                <span class="font-medium">Git / GitHub</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 fade-in">
+                    <h2 class="text-3xl font-bold mb-4">Що я розробляю</h2>
+                    <div class="w-20 h-1 bg-indigo-600 mx-auto rounded-full"></div>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- Project 1: Web -->
+                    <div class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-indigo-500 transition-all fade-in">
+                        <div class="h-56 bg-indigo-600/5 flex items-center justify-center relative overflow-hidden">
+                             <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent"></div>
+                             <span class="text-5xl group-hover:scale-110 transition-transform duration-500">💻</span>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-xl font-bold">E-commerce Dashboard</h3>
+                                <span class="px-2 py-1 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 text-[10px] font-bold rounded uppercase">Web</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">
+                                Адмін-панель для магазину з інтерактивними графіками (Chart.js), фільтрацією товарів та повною адаптивністю. Фокус на UX та швидкості рендерингу.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs font-mono text-indigo-500">#React</span>
+                                <span class="text-xs font-mono text-indigo-500">#TailwindCSS</span>
+                                <span class="text-xs font-mono text-indigo-500">#ContextAPI</span>
+                            </div>
+                            <a href="#" class="inline-flex items-center gap-2 text-sm font-bold hover:gap-3 transition-all">Live Demo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Android -->
+                    <div class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-green-500 transition-all fade-in">
+                        <div class="h-56 bg-green-600/5 flex items-center justify-center relative overflow-hidden">
+                             <div class="absolute inset-0 bg-gradient-to-br from-green-500/10 to-transparent"></div>
+                             <span class="text-5xl group-hover:scale-110 transition-transform duration-500">☁️</span>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-xl font-bold">Weather Pulse</h3>
+                                <span class="px-2 py-1 bg-green-100 dark:bg-green-900/40 text-green-600 text-[10px] font-bold rounded uppercase">Android</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">
+                                Мобільний додаток для відстеження погоди. Використовує OpenWeather API для отримання даних та Jetpack Compose для сучасного UI з підтримкою темної теми.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs font-mono text-green-600">#Kotlin</span>
+                                <span class="text-xs font-mono text-green-600">#Compose</span>
+                                <span class="text-xs font-mono text-green-600">#Retrofit</span>
+                            </div>
+                            <a href="#" class="inline-flex items-center gap-2 text-sm font-bold hover:gap-3 transition-all">GitHub Repo <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Animation/Web -->
+                    <div class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-purple-500 transition-all fade-in">
+                        <div class="h-56 bg-purple-600/5 flex items-center justify-center relative overflow-hidden">
+                             <div class="absolute inset-0 bg-gradient-to-br from-purple-500/10 to-transparent"></div>
+                             <span class="text-5xl group-hover:scale-110 transition-transform duration-500">✨</span>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-xl font-bold">Interactive Portfolio Gallery</h3>
+                                <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900/40 text-purple-600 text-[10px] font-bold rounded uppercase">Web</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">
+                                Експериментальний веб-проєкт з фокусом на плавну анімацію та мікровзаємодії. Використано GSAP для створення унікального досвіду скролінгу.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs font-mono text-purple-500">#JS</span>
+                                <span class="text-xs font-mono text-purple-500">#GSAP</span>
+                                <span class="text-xs font-mono text-purple-500">#A11y</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 4: Mobile/App -->
+                    <div class="group bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl overflow-hidden hover:border-indigo-500 transition-all fade-in">
+                        <div class="h-56 bg-indigo-600/5 flex items-center justify-center relative overflow-hidden">
+                             <div class="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent"></div>
+                             <span class="text-5xl group-hover:scale-110 transition-transform duration-500">📝</span>
+                        </div>
+                        <div class="p-8">
+                            <div class="flex justify-between items-start mb-4">
+                                <h3 class="text-xl font-bold">Focus Task Manager</h3>
+                                <span class="px-2 py-1 bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 text-[10px] font-bold rounded uppercase">Hybrid Thinking</span>
+                            </div>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">
+                                Додаток для керування часом. Реалізовано як PWA, що працює на десктопі та мобільних, з офлайн-режимом (Local Storage) та системою сповіщень.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs font-mono text-indigo-500">#PWA</span>
+                                <span class="text-xs font-mono text-indigo-500">#React</span>
+                                <span class="text-xs font-mono text-indigo-500">#Workbox</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-indigo-600 py-20 transition-colors">
+            <div class="container mx-auto px-6 text-center text-white">
+                <div class="max-w-3xl mx-auto fade-in">
+                    <h2 class="text-4xl font-bold mb-6">Створимо щось разом?</h2>
+                    <p class="text-indigo-100 mb-10 text-lg">Я завжди відкрита до цікавих стажувань, проєктів або просто професійного спілкування.</p>
+                    <div class="flex flex-col sm:flex-row justify-center gap-6">
+                        <a href="#" class="px-8 py-4 bg-white text-indigo-600 rounded-xl font-bold hover:shadow-2xl hover:-translate-y-1 transition-all text-center">
+                            Написати Email
+                        </a>
+                        <a href="https://github.com/Daria373" class="px-8 py-4 bg-indigo-800 text-white rounded-xl font-bold hover:bg-indigo-900 transition-all border border-indigo-400 text-center">
+                            Мій GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 bg-white dark:bg-slate-950 text-center text-slate-500 text-sm border-t border-slate-200 dark:border-slate-800">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-center gap-8 mb-8">
+                <a href="#" class="hover:text-indigo-600 transition-colors font-semibold">LinkedIn</a>
+                <a href="#" class="hover:text-indigo-600 transition-colors font-semibold">Telegram</a>
+                <a href="#" class="hover:text-indigo-600 transition-colors font-semibold">Behance</a>
+            </div>
+            <p>&copy; 2026 Daria. Student @ Computer Engineering. Focused on Web & Mobile.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Dark Mode Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            lightIcon.classList.remove('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            darkIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            lightIcon.classList.toggle('hidden');
+            darkIcon.classList.toggle('hidden');
+
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const closeIcon = document.getElementById('close-icon');
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+            });
+        });
+
+        // Intersection Observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
