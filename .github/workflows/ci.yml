@@ -1,0 +1,59 @@
+name: CI - Lint HTML + Build & Push Docker Image
+
+# Запускаємо при кожному push та при pull request в будь-яку гілку
+on: [push, pull_request]
+
+# Права доступу, необхідні для роботи
+permissions:
+  contents: read # читання коду репозиторію
+  packages: write # запис у GitHub Container Registry (GHCR)
+
+jobs:
+
+  # Перевірка HTML-коду (лінтер)
+  linter:
+    name: HTML Linter (htmlhint)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Завантаження коду
+        uses: actions/checkout@v4
+      
+      - name: Встановлення htmlhint
+        run: npm install -g htmlhint
+      
+      - name: Запуск перевірки HTML
+        run: htmlhint index.html --format unix  # зручний вивід у логах
+
+  # Збірка та публікація Docker-образу
+  docker:
+    name: Build & Push Docker Image to GHCR
+    runs-on: ubuntu-latest
+    needs: linter # запускається тільки після успішного лінтера
+    
+    steps:
+      - name: Завантаження коду
+        uses: actions/checkout@v4
+      
+      - name: Перетворення назви репозиторію в lowercase
+        run: echo "REPO=${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+      
+      - name: Налаштування Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Авторизація в GHCR через PAT
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_PAT }} 
+      
+      - name: Збірка та push Docker-образу
+        uses: docker/build-push-action@v6
+        with:
+          context: . # корінь проєкту (там Dockerfile)
+          push: true
+          tags: |
+            ghcr.io/${{ env.REPO }}/site:latest
+            ghcr.io/${{ env.REPO }}/site:${{ github.sha }}
+          cache-from: type=gha        # кеш з попередніх збірок
+          cache-to: type=gha,mode=max # збереження кешу для прискорення
