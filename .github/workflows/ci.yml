@@ -48,7 +48,7 @@ jobs:
           password: ${{ secrets.GHCR_PAT }} 
       
       - name: Збірка та push Docker-образу
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: . # корінь проєкту (там Dockerfile)
           push: true
